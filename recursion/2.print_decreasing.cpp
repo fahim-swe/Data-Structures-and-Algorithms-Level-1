@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void printDecreasing(int n)
+void printIncreasing(int n)
 {
-	if(n == 0){
-		return;
+	if(n==0){
+		return ;
 	}
+
+	printIncreasing(n-1);
 	cout << n << endl;
-	printDecreasing(n-1);
 }
 int main()
 {
 	int n;
 	cin>>n;
 
-	printDecreasing(n);
+	printIncreasing(n);
 }
