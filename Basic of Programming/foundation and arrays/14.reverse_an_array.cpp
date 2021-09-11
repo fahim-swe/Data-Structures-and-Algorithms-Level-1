@@ -25,3 +25,12 @@ int main()
 	}
 	cout << endl;
 }
+
+
+
+// tell me contratutation
+// exm ses, hoilo...(Totall 18 subjects,, 3 month dore exm, finally ajke ses)
+// so for tell me contratutation..
+// completed half software engineering
+
+
