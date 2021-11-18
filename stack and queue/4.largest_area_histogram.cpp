@@ -9,7 +9,7 @@ vector<int> nextSmallerToLeft(int a[], int n)
 
 	for(int i = 0; i < n; i++)
 	{
-		while(!st.empty() && a[st.top()] > a[i]){
+		while(!st.empty() && a[st.top()] >= a[i]){
 			st.pop();
 		}
 
@@ -35,7 +35,7 @@ vector<int> nextSmallerToRight(int a[], int n)
 
 	for(int i = n-1; i >= 0; i--)
 	{
-		while(!st.empty() && a[st.top()] > a[i]){
+		while(!st.empty() && a[st.top()] >= a[i]){
 			st.pop();
 		}
 		if(st.empty()){

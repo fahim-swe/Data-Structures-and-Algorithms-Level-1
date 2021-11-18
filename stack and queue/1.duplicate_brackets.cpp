@@ -28,7 +28,7 @@ bool duplicate_check(string str)
 int main()
 {
 	string str;
-	cin>>str;
+	getline(cin, str);
 
 	if(duplicate_check(str)){
 		cout << "true" << endl;

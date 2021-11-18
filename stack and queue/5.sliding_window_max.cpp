@@ -6,7 +6,7 @@ int main()
 	int n;
 	cin>>n;
 
-	int a[n];
+	long a[n];
 	for(int i = 0; i < n; i++){
 		cin>>a[i];
 	}
@@ -14,7 +14,7 @@ int main()
 	int k;
 	cin>>k;
 
-	multiset<int> s;
+	multiset<long> s;
 	for(int i = 0; i < k-1; i++){
 		s.insert(a[i]);
 	}

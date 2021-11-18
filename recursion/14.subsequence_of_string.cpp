@@ -20,7 +20,7 @@ vector<string> sub_sequence(string str)
 
 	for(int i = 0; i < rres.size(); i++){
 		mres.push_back(rres[i]);
-		mres.push_back(ch+rres[i]);
+		mres.push_back(rres[i]+ch);
 	}
 
 	return mres;
