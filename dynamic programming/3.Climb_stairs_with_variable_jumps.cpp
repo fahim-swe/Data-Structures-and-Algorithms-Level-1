@@ -1,47 +1,29 @@
-// https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/climb-stairs-with-variable-jumps-official/ojquestion#!
-
-
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-int arr[21];
-int dp[21];
-int N;
+int cs(int *arr, int n){
+    // write your code here
 
-int jumps(int n)
-{
+	if(n==0) return 1;
+	if(n < 0) return 0;
 
-	if(n == N){
-		return 1; 
+	int climb = 0;
+	for(int i =1; i <= arr[n-1]; i++){
+		climb += cs(arr, n-i);
 	}
 
-	if(n > N){
-		return 0;
-	}
-
-	if(dp[n] != -1){
-		return dp[n];
-	}
-	int p = 0;
-	
-	for(int i = 1; i <= arr[n]; i++){
-	   p += jumps(n+i);
-	}
-
-	return dp[n] = p;
+	return climb;
 }
-int main()
-{
-	memset(dp, -1, sizeof(dp));
 
-	
-	cin>>N;
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i = 0 ; i < n ;i++){
+        cin>>arr[i];
+    }
 
-	for(int i = 0; i < N; i++){
-		cin>>arr[i];
-	}
-
-
-	cout << jumps(0) << endl;
-
+	reverse(arr, arr+n);
+    cout<<cs(arr,n)<<endl;
 }

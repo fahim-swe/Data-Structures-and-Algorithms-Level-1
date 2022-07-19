@@ -1,46 +1,32 @@
-// https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/climb-stairs-with-minimum-moves-official/ojquestion
-
-
 #include <bits/stdc++.h>
 using namespace std;
 
-int dp[21];
-int a[21];
-int N;
-
-int minJumps(int n)
+int ClimbStairsWithMinJumps(int *arr, int n, int idx)
 {
-	if(n == N){
-		return 0;
-	}
+	if(idx == n) return 0;
 
-	if(dp[n] != -1){
-		return dp[n];
-	}
+	int climb = n;
 
-	int p = N;
-	for(int j = 1; j <= a[n]; j++){
-		if((n+j) <= N)
-		{
-			// int p1 = minJumps(n+j);
-			// //cout << p1 << " " << p << endl;
-			// p = min(p, p1);
-			p = min(p, minJumps(n+j));
-		}
-	}
+	for(int i = 1; i <= arr[idx]; i++)
+	{
+		if((idx+i) <= n)
+			climb = min (climb, ClimbStairsWithMinJumps(arr, n, idx+i));
+	}  
 
-	return dp[n] = p+1;
+	return climb+1;
 }
 
 int main()
 {
-	memset(dp, -1, sizeof(dp));
-	cin>>N;
+	int n;
+	cin>>n;
 
-	for(int i = 0; i < N; i++){
-		cin>>a[i];
+	int arr[n];
+
+	for(int i = 0; i < n; i++){
+		cin>>arr[i];
 	}
 
-	cout << minJumps(0) << endl;
+	cout << ClimbStairsWithMinJumps(arr, n, 0) << endl;
 
 }

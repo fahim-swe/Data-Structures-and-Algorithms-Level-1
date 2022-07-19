@@ -1,46 +1,40 @@
-// https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/zero-one-knapsack-official/ojquestion
-
+// 
 
 #include <bits/stdc++.h>
 using namespace std;
+
+int dp[100][1000];
+
+
+int zeroOneKnapsack(int value[], int wt[], int n, int capacity)
+{
+	if(n==0 || capacity == 0) return 0;
+
+	if(dp[n][capacity] != -1) return dp[n][capacity];
+
+	if(capacity >= wt[n-1]){
+		return dp[n][capacity] =  max( zeroOneKnapsack(value, wt, n-1, capacity), value[n-1]+zeroOneKnapsack(value, wt, n-1, capacity-wt[n-1]));
+	}
+	return dp[n][capacity] =  zeroOneKnapsack(value, wt, n-1, capacity);
+}
 
 int main()
 {
 	int n;
 	cin>>n;
+	memset(dp, -1, sizeof(dp));
 
-	int wt[n], val[n];
-
-	for(int i = 0; i < n; i++){
-		cin>>val[i];
+	int value[n], wt[n];
+	for(int i= 0; i< n; i++){
+		cin>>value[i];
 	}
 
-	for(int i = 0; i < n; i++){
+	for(int i =0; i < n; i++){
 		cin>>wt[i];
 	}
 
+	int capacity;
+	cin>>capacity;
 
-	int cap;
-	cin>>cap;
-
-	int dp[n+1][cap+1];
-
-	memset(dp, 0, sizeof(dp));
-
-	for(int i = 1; i <= n; i++)
-	{
-		for(int j = 1; j <= cap; j++)
-		{
-			if(wt[i-1] <= j){
-				dp[i][j] = max(val[i-1]+dp[i-1][j-wt[i-1]], dp[i-1][j]);
-			}
-			else{
-				dp[i][j] = dp[i-1][j];
-			}
-		}
-	}
-
-
-	cout << dp[n][cap] << endl;
-
+	cout << zeroOneKnapsack(value, wt, n, capacity) << endl;
 }
