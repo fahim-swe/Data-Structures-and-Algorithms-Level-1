@@ -10,7 +10,6 @@ public:
         if(ch1 == '{' && ch2 == '}') return true;
         if(ch1 == '[' && ch2 == ']') return true;
 
-
         return false;
     }
     bool isValid(string s) {
