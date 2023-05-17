@@ -17,65 +17,26 @@ struct TreeNode
 
 public:
 
-    void dfs(TreeNode* node, TreeNode* p, bool &flag, TreeNode* &lca)
-    {
-        if(node == nullptr) return ;
-        if(node == p) {
-            flag = true;
-          //  cout << node->val << " turn on " << flag << endl;
+    
 
 
-            return ;
-        }
-
-        if(!flag) dfs(node->left, p,  flag, lca);
-        if(!flag) dfs(node->right, p,  flag, lca);
-
-
-
-        if(flag){
-           //  cout << node->val << " turn on " << flag << endl;
-             if(lca->val > node->val){
-                lca = node;
-             }
-        }
-
-       // cout << lca->val << endl;
-    }
-
-
-
-    void modifyDfs(TreeNode* node, TreeNode* p, TreeNode* q, bool &flag)
-    {
-
-        if(node == nullptr) return ;
-
-        if(node == p || node == q){
-            cout << node->val << endl;
-            flag = true;
-            return ;
-        }
-
-        if(!flag) modifyDfs(node->left, p, q, flag);
-        if(!flag) modifyDfs(node->right, p, q, flag);
-
-        if(flag) cout << "finished visited " <<  node->val << endl;
-
-      //  flag = false;
-    }
-
+    
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        bool flag = false;
+        
+        if(root == NULL) return root;
 
-        TreeNode* lca = root;
+        if(root->val == p->val   || root->val == q->val){
+            return root;
+        } 
 
-       // dfs(root, p, flag, lca);
-        //flag = false;
-       // dfs(root, q, flag, lca);
 
-       modifyDfs(root, p, q, flag);
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
 
-        return lca;
+        if(left == NULL) return right;
+        if(right == NULL) return left;
+
+        return root;
     }
 };
 
@@ -97,5 +58,5 @@ int main()
 
     Solution S;
     TreeNode* lca =  S.lowestCommonAncestor(root, root->left->right->right, root->right->right);
-    // cout << lca->val << endl;
+    cout << lca->val << endl;
 }

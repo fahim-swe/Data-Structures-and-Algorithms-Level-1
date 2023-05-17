@@ -41,7 +41,7 @@ public:
 
                 while(!q2.empty()){
                     if(q2.size() == 1) {
-                        rightViewOfBST.push_back(q2.front()->val);
+                        rightViewOfBST.push_back(q2.front()->val);  
                     }
                     q1.push(q2.front());
                     q2.pop();
