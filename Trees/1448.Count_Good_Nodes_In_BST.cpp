@@ -16,53 +16,24 @@ struct TreeNode
 class Solution 
 {
     public:
-
-        TreeNode *root;
-        vector<int> path;
-        int ans = 0;
-       
-
-        void dfs(TreeNode* node)
-        {
-            if(node == nullptr) return ;
-            bool flag = false;
-
-            bool check = true;
-            dfsPath(this->root, node, flag, check);
-          
-            if(check) ans++;
-          
-            dfs(node->left);
-            dfs(node->right);
-        }
-
-        void dfsPath(TreeNode* root, TreeNode* node, bool &flag,bool &check)
+        int cnt = 0;
+        
+        void dfs(TreeNode* root, int prev)
         {
             if(root == nullptr) return ;
 
-            if(root == node){
-                flag = true;
-                return ;
+         //   cout << root->val << " " << prev << endl;
+            if(root->val >= prev){
+                cnt++;
             }
-
-            if(root->val >= node->val ) 
-            else ( root->val < node->val) {
-                dfsPath(root->right, node, flag, check);
-            } 
-
-            if(flag) {
-                if(root->val > node->val) {
-                    cout << root->val << " ";
-                    check = false;
-                }
-            }
+            dfs(root->left, max(prev, root->val));
+            dfs(root->right, max(prev, root->val));
         }
 
         int goodNodes(TreeNode* root)
         {
-            this->root = root;
-            dfs(root);
-            return ans;
+           dfs(root, -1);
+           return cnt;
         }
 };
 
@@ -76,7 +47,6 @@ int main()
     root->right->right = new TreeNode(5);
 
     Solution S;
-    
-    vector<int> path;
+
     cout << S.goodNodes(root) << endl;
 }
