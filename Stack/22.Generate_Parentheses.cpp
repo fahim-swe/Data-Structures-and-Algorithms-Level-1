@@ -3,60 +3,23 @@ using namespace std;
 
 class Solution {
     public:
-        set<string> validParenthesis;
-        bool isValidParenthesis(string str)
+        vector<string> result;
+
+
+        void solve(string s, int open, int close, int n)
         {
-            stack<char> st;
-
-            for(int i = 0; i < str.size(); i++){
-                if(str[i] == '(') st.push(str[i]);
-                else if(str[i] == ')'){
-                    if(!st.empty() && st.top() == '(' ){
-                        st.pop();
-                    }
-                    else{
-                        return false;
-                    }
-                }
+            if(open == n && close == n){
+                result.push_back(s);
             }
 
-            return st.empty();
+            if(open < n) solve(s + "(", open+1, close, n);
+            if(close < open) solve(s + ")", open, close+1, n);
+
         }
-
-
-        void generatePermutation(string str, string ans)
-        {
-            if(str.size() == 0){
-                
-                cout << ans << endl;
-                if(isValidParenthesis(ans)){
-                   validParenthesis.insert(ans);
-                }
-                return ;
-            }
-
-            for(int i = 0; i < str.size(); i++)
-            {
-               ans.push_back(str[i]);
-               generatePermutation(str.substr(0, i)+str.substr(i+1), ans);
-               ans.pop_back();
-            }
-        }
-
-
         vector<string> generateParenthesis(int n) {
-            string str;
-            for(int i = 0; i < n; i++){
-                str.push_back('(');
-                str.push_back(')');
-            }
-            generatePermutation(str, "");
+            solve("", 0, 0, n);
 
-            vector<string> ans;
-            for(auto it = validParenthesis.begin(); it != validParenthesis.end(); it++){
-                ans.push_back(*it);
-            }
-            return ans;
+            return result;
         }
 };
 
@@ -69,5 +32,5 @@ int main()
         cout << x << " " << endl;
     }
 
-    S.generatePermutation("122", "");
+    
 }
