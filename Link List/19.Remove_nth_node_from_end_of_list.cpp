@@ -14,13 +14,12 @@ struct ListNode{
 class Solution {
 public:
 
-    int numOfNode(ListNode* head)
+    int numOfNodes(ListNode* head)
     {
-        ListNode* t = head;
-        int c = 0;
-        while(t != nullptr){
-            t = t->next;
+        int c= 0;
+        while(head != NULL){
             c++;
+            head = head->next;
         }
 
         return c;
@@ -29,36 +28,40 @@ public:
 
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         
-        ListNode* t = head;
+        int lenght = numOfNodes(head);
 
-        int total = numOfNode(head);
+        if(lenght == 1 || lenght == n) return head->next;
 
-        
-        int time = total - n;
-        time--;
+        ListNode* currNode = head;
 
-        while(time--){
-            t = t->next;
+        for(int i = 0; i < lenght-n-1; i++){
+            currNode = currNode->next;
         }
 
-        if(t == head) head = nullptr;
-
-        t->next = t->next->next;
-
+        currNode->next = currNode->next->next;
 
         return head;
     }
 };
 
+void printNodes(ListNode* head)
+{
+    while(head != NULL){
+        cout << head->val << " ";
+        head = head->next;
+    }
+}
+
 int main()
 {
     ListNode* root = new ListNode(1);
-    // root->next = new ListNode(2);
-    // root->next->next = new ListNode(3);
-    // root->next->next->next = new ListNode(4);
-    // root->next->next->next->next = new ListNode(5);
+    root->next = new ListNode(2);
+    root->next->next = new ListNode(3);
+    root->next->next->next = new ListNode(4);
+    root->next->next->next->next = new ListNode(5);
 
     Solution S;
     
-    root = S.removeNthFromEnd(root, 1);
+    root = S.removeNthFromEnd(root, 2);
+    printNodes(root);
 }
